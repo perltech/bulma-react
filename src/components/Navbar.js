@@ -4,8 +4,6 @@ import Navbar from 'react-bulma-components/lib/components/navbar';
 
 import Recompose, { withReducer } from 'recompose';
 
-// Add recompose
-
 const Nav = ({ active, onClick }) =>
     <Navbar>
         <Navbar.Brand>
@@ -32,7 +30,4 @@ const Nav = ({ active, onClick }) =>
 
 const showHamburgerMenu = withReducer('active', 'onClick', (active) => active === '' ? active = 'is-active' : active = '');
 
-
-const mobileNav = showHamburgerMenu(Nav);
-
-export default mobileNav;
+export default showHamburgerMenu(Nav);
