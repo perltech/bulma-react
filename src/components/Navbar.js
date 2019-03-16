@@ -1,54 +1,38 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-import { Field, Control } from 'react-bulma-components/lib/components/form';
 import Navbar from 'react-bulma-components/lib/components/navbar';
 
-const colors = {
-    Default: '',
-    primary: 'primary',
-    info: 'info',
-    danger: 'danger',
-    warning: 'warning',
-    success: 'success',
-    white: 'white',
-    black: 'black',
-    light: 'light',
-    dark: 'dark',
-    link: 'link'
-};
+import Recompose, { withReducer } from 'recompose';
 
-const Nav = () => {
+// Add recompose
 
-    let state = {
-        open: 'open'
-    }
+const Nav = ({ active, onClick }) =>
+    <Navbar>
+        <Navbar.Brand>
+            <Navbar.Item renderAs="a" href="#">
+                <img
+                    src="https://bulma.io/images/bulma-logo.png"
+                    alt="Bulma: a modern CSS framework based on Flexbox"
+                    width="112"
+                    height="28" />
+            </Navbar.Item>
+            <Navbar.Burger
+                className={active}
+                onClick={onClick} />
+        </Navbar.Brand>
+        <Navbar.Menu className={active}>
+            <Navbar.Container>
+                <Navbar.Item href="#">Second</Navbar.Item>
+            </Navbar.Container>
+            <Navbar.Container position="end">
+                <Navbar.Item href="#">At the end</Navbar.Item>
+            </Navbar.Container>
+        </Navbar.Menu>
+    </Navbar>
 
-    return (
-        <Navbar>
-            <Navbar.Brand>
-                <Navbar.Item renderAs="a" href="#">
-                    <img
-                        src="https://bulma.io/images/bulma-logo.png"
-                        alt="Bulma: a modern CSS framework based on Flexbox"
-                        width="112"
-                        height="28" />
-                </Navbar.Item>
-                <Navbar.Burger
-                    active={state.open}
-                    onClick={() => {
-                        return state.open ? 'open' : 'closed';
-                    }} />
-            </Navbar.Brand>
-            <Navbar.Menu active={state.open}>
-                <Navbar.Container>
-                    <Navbar.Item href="#">Second</Navbar.Item>
-                </Navbar.Container>
-                <Navbar.Container position="end">
-                    <Navbar.Item href="#">At the end</Navbar.Item>
-                </Navbar.Container>
-            </Navbar.Menu>
-        </Navbar>
-    );
-}
+const showHamburgerMenu = withReducer('active', 'onClick', (active) => active === '' ? active = 'is-active' : active = '');
 
-export default Nav;
+
+const mobileNav = showHamburgerMenu(Nav);
+
+export default mobileNav;
